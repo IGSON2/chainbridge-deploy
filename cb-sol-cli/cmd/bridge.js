@@ -270,24 +270,6 @@ const queryResourceId = new Command("query-resource")
     );
   });
 
-const getDomainID = new Command("_domainID")
-  .description("Get Domain ID")
-  .option(
-    "--bridge <address>",
-    "Bridge contract address",
-    constants.BRIDGE_ADDRESS
-  )
-  .action(async function (args) {
-    await setupParentArgs(args, args.parent.parent);
-
-    const bridgeInstance = new ethers.Contract(
-      args.bridge,
-      constants.ContractABIs.Bridge.abi,
-      args.wallet
-    );
-    log(args);
-  });
-
 const bridgeCmd = new Command("bridge");
 
 bridgeCmd.addCommand(registerResourceCmd);
@@ -296,6 +278,5 @@ bridgeCmd.addCommand(setBurnCmd);
 bridgeCmd.addCommand(cancelProposalCmd);
 bridgeCmd.addCommand(queryProposalCmd);
 bridgeCmd.addCommand(queryResourceId);
-bridgeCmd.addCommand(getDomainID);
 
 module.exports = bridgeCmd;
