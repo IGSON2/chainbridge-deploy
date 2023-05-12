@@ -135,12 +135,16 @@ depositdst:
 	--recipient ${SRC_ADDR} \
 	--resourceId ${RESOURCE_ID}
 
-datasrc:
-	 ./index.js erc20 printdata  \
-	 --recipient ${DST_ADDR} \
+encodeamt:
+	 ./index.js erc20 encodeamt  \
 	 --amount ${AMOUNT}
 
-datadst:
-	 ./index.js erc20 printdata  \
-	 --recipient ${SRC_ADDR} \
-	 --amount ${AMOUNT}
+encodeaddramtsrc:
+	./index.js erc20 encodeaddramt  \
+	--recipient ${DST_ADDR} \
+	--amount ${AMOUNT}
+
+encodeaddramtdst:
+	 ./index.js erc20 encodeaddramt  \
+	--recipient ${SRC_ADDR} \
+	--amount ${AMOUNT}

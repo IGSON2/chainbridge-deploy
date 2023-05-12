@@ -239,7 +239,25 @@ const proposalDataHashCmd = new Command("data-hash")
     log(args, `Hash: ${hash} Data: ${data}`);
   });
 
-const printData = new Command("printdata")
+const encodeamt = new Command("encodeamt")
+  .description("Initiates a bridge transfer")
+  .option("--amount <value>", "Amount to transfer", 1)
+  .action(async function (args) {
+    await setupParentArgs(args, args.parent.parent);
+
+    const data =
+      "0x" +
+      ethers.utils
+        .hexZeroPad(ethers.utils.bigNumberify(args.amount).toHexString(), 32)
+        .substring(2);
+    log(
+      args,
+      `  Amount: ${ethers.utils.bigNumberify(args.amount).toHexString()}`
+    );
+    log(args, `  Raw data: ${data}`);
+  });
+
+const encodeaddramt = new Command("encodeaddramt")
   .description("Initiates a bridge transfer")
   .option("--amount <value>", "Amount to transfer", 1)
   .option(
@@ -274,9 +292,10 @@ erc20Cmd.addCommand(mintCmd);
 erc20Cmd.addCommand(addMinterCmd);
 erc20Cmd.addCommand(approveCmd);
 erc20Cmd.addCommand(depositCmd);
-erc20Cmd.addCommand(printData);
 erc20Cmd.addCommand(balanceCmd);
 erc20Cmd.addCommand(allowanceCmd);
 erc20Cmd.addCommand(proposalDataHashCmd);
+erc20Cmd.addCommand(encodeamt);
+erc20Cmd.addCommand(encodeaddramt);
 
 module.exports = erc20Cmd;
